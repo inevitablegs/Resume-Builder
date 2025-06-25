@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'resume',  # Your resume app
+    'tailwind',
+    'theme',
 ]
+
+TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'resume_builder.urls'
+NPM_BIN_PATH = "C:/Users/Ganesh/AppData/Roaming/npm/npm.cmd"
 
 TEMPLATES = [
     {
