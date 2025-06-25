@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Builder</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
+        fieldset { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+        legend { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Build Your Resume</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <fieldset>
+            <legend>Education</legend>
+            {{ edu_formset.management_form }}
+            {% for form in edu_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Experience</legend>
+            {{ exp_formset.management_form }}
+            {% for form in exp_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Skills</legend>
+            {{ skill_formset.management_form }}
+            {% for form in skill_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit">Preview Resume</button>
+    </form>
+</body>
+</html>
