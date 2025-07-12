@@ -1,4 +1,0 @@
-init
-add .
-commit -m "Tp"
-push
