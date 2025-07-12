@@ -1,0 +1,39 @@
+{% extends "resume/base.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-blue-700 mb-4">Professional Resume Builder</h1>
+        <p class="text-xl text-gray-600">Create stunning resumes in minutes</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-blue-600 text-3xl mb-4">📝</div>
+            <h3 class="text-xl font-semibold mb-2">Easy to Use</h3>
+            <p class="text-gray-600">Fill in your details and let our builder handle the formatting.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-blue-600 text-3xl mb-4">🎨</div>
+            <h3 class="text-xl font-semibold mb-2">Multiple Templates</h3>
+            <p class="text-gray-600">Choose from professionally designed templates.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-blue-600 text-3xl mb-4">📤</div>
+            <h3 class="text-xl font-semibold mb-2">Instant Download</h3>
+            <p class="text-gray-600">Get your resume as PDF with one click.</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-12">
+        <a href="{% url 'resume_form' %}" 
+           class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg">
+            Create Your Resume Now
+        </a>
+    </div>
+</div>
+{% endblock %}

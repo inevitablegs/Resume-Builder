@@ -1,38 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ resume.name }}'s Resume</title>
-    <style>
-        body { font-family: Arial; padding: 30px; max-width: 800px; margin: auto; }
-        h1 { margin-bottom: 0; }
-        h2 { margin-top: 20px; }
-    </style>
-</head>
-<body>
-    <h1>{{ resume.name }}</h1>
-    <p><strong>Email:</strong> {{ resume.email }}</p>
-    <p><strong>Phone:</strong> {{ resume.phone }}</p>
+{% extends "resume/base.html" %}
+{% block title %}{{ resume.name }}'s Resume{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+    <!-- Header -->
+    <div class="border-b pb-4 mb-6">
+        <h1 class="text-4xl font-bold text-gray-800">{{ resume.name }}</h1>
+        <div class="mt-2 text-gray-600">
+            <p><strong>Email:</strong> {{ resume.email }}</p>
+            <p><strong>Phone:</strong> {{ resume.phone }}</p>
+        </div>
+    </div>
 
-    <h2>Summary</h2>
-    <p>{{ resume.summary }}</p>
+    <!-- Summary -->
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold text-blue-700 border-b pb-2 mb-3">Summary</h2>
+        <p class="text-gray-700">{{ resume.summary }}</p>
+    </section>
 
-    <h2>Education</h2>
-    {% for edu in resume.educations.all %}
-        <p><strong>{{ edu.degree }}</strong>, {{ edu.institute }} ({{ edu.year }})</p>
-    {% endfor %}
-
-    <h2>Experience</h2>
-    {% for exp in resume.experiences.all %}
-        <p><strong>{{ exp.job_title }}</strong> at {{ exp.company }} ({{ exp.duration }})<br>{{ exp.description }}</p>
-    {% endfor %}
-
-    <h2>Skills</h2>
-    <ul>
-        {% for skill in resume.skills.all %}
-            <li>{{ skill.name }}</li>
+    <!-- Education -->
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold text-blue-700 border-b pb-2 mb-3">Education</h2>
+        {% for edu in resume.educations.all %}
+            <div class="mb-3">
+                <p class="font-semibold">{{ edu.degree }}</p>
+                <p class="text-gray-600">{{ edu.institute }} ({{ edu.year }})</p>
+            </div>
         {% endfor %}
-    </ul>
+    </section>
 
-    <a href="{% url 'download_pdf' resume.id %}">Download as PDF</a>
-</body>
-</html>
+    <!-- Experience -->
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold text-blue-700 border-b pb-2 mb-3">Experience</h2>
+        {% for exp in resume.experiences.all %}
+            <div class="mb-4">
+                <p class="font-semibold">{{ exp.job_title }}</p>
+                <p class="text-gray-600">{{ exp.company }} ({{ exp.duration }})</p>
+                <p class="text-gray-700">{{ exp.description }}</p>
+            </div>
+        {% endfor %}
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-6">
+        <h2 class="text-2xl font-semibold text-blue-700 border-b pb-2 mb-3">Skills</h2>
+        <div class="flex flex-wrap gap-2">
+            {% for skill in resume.skills.all %}
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">{{ skill.name }}</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- PDF Download -->
+    <div class="mt-8 text-center">
+        <a href="{% url 'download_pdf' resume.id %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+            Download as PDF
+        </a>
+    </div>
+</div>
+{% endblock %}
