@@ -1,13 +1,22 @@
 from django import forms
 from django.forms import inlineformset_factory
 from .models import Resume, Education, Experience, Skill
+from .models import Template
 
+# In forms.py
 class ResumeForm(forms.ModelForm):
+    template = forms.ModelChoiceField(
+        queryset=Template.objects.all(),
+        required=False,
+        label='Select a template'
+    )
+    
     class Meta:
         model = Resume
-        fields = ['name', 'email', 'phone', 'summary']
+        fields = ['name', 'email', 'phone', 'summary', 'template']
         widgets = {
-            'summary': forms.Textarea(attrs={'rows': 4})
+            'summary': forms.Textarea(attrs={'rows': 4, 'class': 'w-full p-2 border rounded'}),
+            'name': forms.TextInput(attrs={'class': 'w-full p-2 border rounded'}),
         }
 
 EducationFormSet = inlineformset_factory(

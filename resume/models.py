@@ -34,3 +34,34 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# In models.py
+class Template(models.Model):
+    name = models.CharField(max_length=100)
+    preview_image = models.ImageField(upload_to='template_previews/')
+    template_file = models.CharField(max_length=100)  # Path to template HTML file
+    is_premium = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.name
+    
+    
+# In models.py
+class ResumeSection(models.Model):
+    SECTION_CHOICES = [
+        ('summary', 'Summary'),
+        ('experience', 'Experience'),
+        ('education', 'Education'),
+        ('skills', 'Skills'),
+        ('projects', 'Projects'),
+        ('certifications', 'Certifications'),
+    ]
+    
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    section_type = models.CharField(max_length=20, choices=SECTION_CHOICES)
+    order = models.PositiveIntegerField(default=0)
+    is_visible = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['order']

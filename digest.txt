@@ -1,0 +1,882 @@
+Directory structure:
+└── resume_builder/
+    ├── README.md
+    ├── db.sqlite3
+    ├── manage.py
+    ├── resume/
+    │   ├── __init__.py
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── forms.py
+    │   ├── models.py
+    │   ├── tests.py
+    │   ├── urls.py
+    │   ├── views.py
+    │   ├── migrations/
+    │   │   ├── 0001_initial.py
+    │   │   └── __init__.py
+    │   └── templates/
+    │       └── resume/
+    │           ├── form.html
+    │           └── preview.html
+    ├── resume_builder/
+    │   ├── __init__.py
+    │   ├── asgi.py
+    │   ├── settings.py
+    │   ├── urls.py
+    │   └── wsgi.py
+    └── theme/
+        ├── __init__.py
+        ├── apps.py
+        ├── static_src/
+        │   ├── package.json
+        │   ├── postcss.config.js
+        │   └── src/
+        │       └── styles.css
+        └── templates/
+            └── base.html
+
+================================================
+FILE: README.md
+================================================
+# 📄 resume_builder
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI/CD Status](https://img.shields.io/badge/CI/CD-Passing-brightgreen.svg)](https://example.com/your-ci-cd-link)
+[![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+
+## 🚀 Project Overview
+
+`resume_builder` is a robust and intuitive web application designed to streamline the process of creating professional and impactful resumes. Built primarily with Django, this project provides a user-friendly interface that empowers individuals to input their professional details, select from a variety of customizable templates, and generate polished resumes ready for download.
+
+This tool aims to simplify the often-tedious task of resume creation by handling formatting and design, allowing users to focus on showcasing their skills and experience. Whether you're a recent graduate crafting your first resume or a seasoned professional looking to update your career profile, `resume_builder` offers a seamless experience to produce outstanding documents tailored to your needs.
+
+## ✨ Features
+
+*   **Intuitive Web Interface**: A clean and easy-to-navigate user interface for efficient resume creation.
+*   **Customizable Templates**: A curated selection of professionally designed templates to suit diverse industries and personal styles.
+*   **Dynamic Content Management**: Effortlessly add, edit, and organize sections such as work experience, education, skills, projects, and contact information.
+*   **PDF Export**: Generate and download your completed resume in a universally compatible PDF format.
+*   **User Authentication**: Secure user accounts to manage and store multiple resume versions for different applications.
+*   **Responsive Design**: Access and build your resume from various devices, ensuring a consistent user experience.
+*   **Django Admin Panel**: Provides an administrative interface for potential management of users, templates, or application-wide settings.
+
+## 🛠️ Installation
+
+Follow these steps to set up and run `resume_builder` on your local development environment.
+
+### Prerequisites
+
+*   Python 3.8 or higher
+*   `pip` (Python package installer)
+
+### Steps
+
+1.  **Clone the repository:**
+    Begin by cloning the project repository to your local machine:
+    ```bash
+    git clone https://github.com/your-username/resume_builder.git
+    cd resume_builder
+    ```
+
+2.  **Create and activate a virtual environment:**
+    It's highly recommended to use a Python virtual environment to manage project dependencies isolation.
+    ```bash
+    python -m venv venv
+    # On Windows:
+    .\venv\Scripts\activate
+    # On macOS/Linux:
+    source venv/bin/activate
+    ```
+
+3.  **Install dependencies:**
+    This project relies on Django and other Python packages. While no `requirements.txt` was detected, you will need to install Django and any other necessary libraries.
+    ```bash
+    pip install Django
+    # You may need to install additional packages based on project specifics,
+    # e.g., pip install Pillow (for image handling), djangorestframework (if APIs are planned), etc.
+    ```
+    *(Note: If a `requirements.txt` file becomes available in the future, simply run `pip install -r requirements.txt`.)*
+
+4.  **Apply database migrations:**
+    The project uses Django's ORM. Initialize the database schema by running migrations:
+    ```bash
+    python manage.py makemigrations resume
+    python manage.py migrate
+    ```
+
+5.  **Create a superuser (optional, but recommended for administration):**
+    To access the Django administration panel, create an administrative user:
+    ```bash
+    python manage.py createsuperuser
+    ```
+    Follow the prompts to set up your admin username, email, and password.
+
+6.  **Run the development server:**
+    Start the Django development server:
+    ```bash
+    python manage.py runserver
+    ```
+    The application will now be accessible in your web browser at `http://127.0.0.1:8000/`.
+
+## 🚀 Usage
+
+Once the development server is running, navigate to `http://127.0.0.1:8000/` in your web browser.
+
+1.  **Register or Log In**: If you're a new user, register for an account. Otherwise, log in with your existing credentials.
+2.  **Access Dashboard**: Upon successful login, you will be directed to your personal dashboard.
+3.  **Create New Resume**: Click the "Create New Resume" button (or similar interface element) to begin building your resume.
+4.  **Input Details**: Fill in the required sections, including personal information, work experience, educational background, skills, projects, and any other relevant accomplishments.
+5.  **Select Template**: Choose from the available professional templates that best align with your desired aesthetic and industry standards.
+6.  **Preview and Download**: Preview your resume to ensure all details are accurate and formatting is correct. Once satisfied, click the "Download PDF" button to save your high-quality resume.
+
+### Accessing the Admin Panel
+
+If you created a superuser, you can access the powerful Django administration interface at `http://127.0.0.1:8000/admin/`. Use your superuser credentials to log in and manage users, application data, and potentially templates.
+
+## ⚙️ Configuration Options
+
+The primary configuration for `resume_builder` is managed within the `settings.py` file, typically found in your main project directory (e.g., `your_project_name/settings.py`).
+
+Key configurations you might want to review or modify include:
+
+*   **`SECRET_KEY`**: A critical security setting. **Always set this to a strong, unique value in a production environment.**
+*   **`DEBUG`**: Set to `True` for development, `False` for production. Disabling `DEBUG` in production is crucial for security and performance.
+*   **`ALLOWED_HOSTS`**: A list of host/domain names that this Django site can serve. Required when `DEBUG` is `False`.
+*   **`DATABASES`**: Defines database connection settings. By default, Django uses SQLite, but you can configure it for PostgreSQL, MySQL, etc.
+*   **`STATIC_URL`**, **`STATIC_ROOT`**, **`MEDIA_URL`**, **`MEDIA_ROOT`**: Settings for serving static files (CSS, JavaScript, images) and user-uploaded media files.
+
+**Example: Configuring `DATABASES` for PostgreSQL**
+
+```python
+# In your project's settings.py file
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'resume_builder_db',
+        'USER': 'your_db_user',
+        'PASSWORD': 'your_db_password',
+        'HOST': 'localhost', # Or your database server IP/hostname
+        'PORT': '5432',      # Default PostgreSQL port
+    }
+}
+```
+
+## 📚 API Documentation
+
+`resume_builder` is primarily designed as a standalone, user-facing web application. At this stage, it does not expose a public RESTful API for external consumption. All core interactions and functionalities are accessible directly through the web interface.
+
+*Should future development introduce a public API, this section will be expanded to include detailed endpoint documentation, request/response formats, authentication methods, and usage examples.*
+
+## 🤝 Contributing
+
+We warmly welcome contributions to `resume_builder`! Your bug reports, feature suggestions, and code contributions are invaluable to the project's growth.
+
+To contribute, please follow these general steps:
+
+1.  **Fork the repository**: Create your own copy of the project.
+2.  **Create a new branch**: For your specific feature or bug fix (e.g., `git checkout -b feature/new-template` or `bugfix/fix-pdf-export`).
+3.  **Make your changes**: Implement your enhancements or fixes. Ensure your code adheres to the project's existing style and standards.
+4.  **Write tests**: If applicable, add unit or integration tests for new features or to cover bug fixes.
+5.  **Run tests**: Verify that all existing tests pass after your changes: `python manage.py test`.
+6.  **Commit your changes**: Use clear and concise commit messages.
+7.  **Push your branch**: Upload your changes to your forked repository.
+8.  **Open a Pull Request**: Submit a Pull Request to the `main` branch of the original `resume_builder` repository. Please describe your changes thoroughly and reference any relevant issues.
+
+### Code of Conduct
+
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) (placeholder) to understand the standards of behavior and community expectations we uphold.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
+
+
+================================================
+FILE: db.sqlite3
+================================================
+[Non-text file]
+
+
+================================================
+FILE: manage.py
+================================================
+#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks."""
+import os
+import sys
+
+
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'resume_builder.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == '__main__':
+    main()
+
+
+
+================================================
+FILE: resume/__init__.py
+================================================
+
+
+
+================================================
+FILE: resume/admin.py
+================================================
+from django.contrib import admin
+
+# Register your models here.
+
+
+
+================================================
+FILE: resume/apps.py
+================================================
+from django.apps import AppConfig
+
+
+class ResumeConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'resume'
+
+
+
+================================================
+FILE: resume/forms.py
+================================================
+from django import forms
+from django.forms import inlineformset_factory
+from .models import Resume, Education, Experience, Skill
+
+class ResumeForm(forms.ModelForm):
+    class Meta:
+        model = Resume
+        fields = ['name', 'email', 'phone', 'summary']
+        widgets = {
+            'summary': forms.Textarea(attrs={'rows': 4})
+        }
+
+EducationFormSet = inlineformset_factory(
+    Resume, Education,
+    fields=('degree', 'institute', 'year'),
+    extra=1, can_delete=True
+)
+
+ExperienceFormSet = inlineformset_factory(
+    Resume, Experience,
+    fields=('job_title', 'company', 'duration', 'description'),
+    extra=1, can_delete=True
+)
+
+SkillFormSet = inlineformset_factory(
+    Resume, Skill,
+    fields=('name',),
+    extra=1, can_delete=True
+)
+
+
+
+================================================
+FILE: resume/models.py
+================================================
+from django.db import models
+
+class Resume(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    summary = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class Education(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='educations')
+    degree = models.CharField(max_length=100)
+    institute = models.CharField(max_length=100)
+    year = models.CharField(max_length=4)
+
+    def __str__(self):
+        return f"{self.degree} at {self.institute}"
+
+class Experience(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='experiences')
+    job_title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    duration = models.CharField(max_length=50)
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.job_title} at {self.company}"
+
+class Skill(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='skills')
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+
+================================================
+FILE: resume/tests.py
+================================================
+from django.test import TestCase
+
+# Create your tests here.
+
+
+
+================================================
+FILE: resume/urls.py
+================================================
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.resume_form, name='resume_form'),
+    path('preview/<int:resume_id>/', views.preview_resume, name='preview_resume'),
+    path('download/<int:resume_id>/', views.download_pdf, name='download_pdf'),
+]
+
+
+
+================================================
+FILE: resume/views.py
+================================================
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ResumeForm, EducationFormSet, ExperienceFormSet, SkillFormSet
+from .models import Resume
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def resume_form(request):
+    if request.method == 'POST':
+        form = ResumeForm(request.POST)
+        if form.is_valid():
+            resume = form.save()
+            edu_formset = EducationFormSet(request.POST, instance=resume)
+            exp_formset = ExperienceFormSet(request.POST, instance=resume)
+            skill_formset = SkillFormSet(request.POST, instance=resume)
+            if edu_formset.is_valid() and exp_formset.is_valid() and skill_formset.is_valid():
+                edu_formset.save()
+                exp_formset.save()
+                skill_formset.save()
+                return redirect('preview_resume', resume_id=resume.id)
+    else:
+        form = ResumeForm()
+        edu_formset = EducationFormSet()
+        exp_formset = ExperienceFormSet()
+        skill_formset = SkillFormSet()
+
+    return render(request, 'resume/form.html', {
+        'form': form,
+        'edu_formset': edu_formset,
+        'exp_formset': exp_formset,
+        'skill_formset': skill_formset
+    })
+
+def preview_resume(request, resume_id):
+    resume = get_object_or_404(Resume, pk=resume_id)
+    return render(request, 'resume/preview.html', {'resume': resume})
+
+def download_pdf(request, resume_id):
+    resume = get_object_or_404(Resume, pk=resume_id)
+    template = get_template('resume/preview.html')
+    html = template.render({'resume': resume})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
+    pisa.CreatePDF(html, dest=response)
+    return response
+
+
+
+================================================
+FILE: resume/migrations/0001_initial.py
+================================================
+# Generated by Django 4.2 on 2025-06-25 16:14
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Resume',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('email', models.EmailField(max_length=254)),
+                ('phone', models.CharField(max_length=15)),
+                ('summary', models.TextField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Skill',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('resume', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='skills', to='resume.resume')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Experience',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('job_title', models.CharField(max_length=100)),
+                ('company', models.CharField(max_length=100)),
+                ('duration', models.CharField(max_length=50)),
+                ('description', models.TextField()),
+                ('resume', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='experiences', to='resume.resume')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Education',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('degree', models.CharField(max_length=100)),
+                ('institute', models.CharField(max_length=100)),
+                ('year', models.CharField(max_length=4)),
+                ('resume', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='educations', to='resume.resume')),
+            ],
+        ),
+    ]
+
+
+
+================================================
+FILE: resume/migrations/__init__.py
+================================================
+
+
+
+================================================
+FILE: resume/templates/resume/form.html
+================================================
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Builder</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
+        fieldset { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+        legend { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Build Your Resume</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <fieldset>
+            <legend>Education</legend>
+            {{ edu_formset.management_form }}
+            {% for form in edu_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Experience</legend>
+            {{ exp_formset.management_form }}
+            {% for form in exp_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Skills</legend>
+            {{ skill_formset.management_form }}
+            {% for form in skill_formset %}
+                {{ form.as_p }}
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit">Preview Resume</button>
+    </form>
+</body>
+</html>
+
+
+
+================================================
+FILE: resume/templates/resume/preview.html
+================================================
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ resume.name }}'s Resume</title>
+    <style>
+        body { font-family: Arial; padding: 30px; max-width: 800px; margin: auto; }
+        h1 { margin-bottom: 0; }
+        h2 { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>{{ resume.name }}</h1>
+    <p><strong>Email:</strong> {{ resume.email }}</p>
+    <p><strong>Phone:</strong> {{ resume.phone }}</p>
+
+    <h2>Summary</h2>
+    <p>{{ resume.summary }}</p>
+
+    <h2>Education</h2>
+    {% for edu in resume.educations.all %}
+        <p><strong>{{ edu.degree }}</strong>, {{ edu.institute }} ({{ edu.year }})</p>
+    {% endfor %}
+
+    <h2>Experience</h2>
+    {% for exp in resume.experiences.all %}
+        <p><strong>{{ exp.job_title }}</strong> at {{ exp.company }} ({{ exp.duration }})<br>{{ exp.description }}</p>
+    {% endfor %}
+
+    <h2>Skills</h2>
+    <ul>
+        {% for skill in resume.skills.all %}
+            <li>{{ skill.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'download_pdf' resume.id %}">Download as PDF</a>
+</body>
+</html>
+
+
+
+================================================
+FILE: resume_builder/__init__.py
+================================================
+
+
+
+================================================
+FILE: resume_builder/asgi.py
+================================================
+"""
+ASGI config for resume_builder project.
+
+It exposes the ASGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
+"""
+
+import os
+
+from django.core.asgi import get_asgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'resume_builder.settings')
+
+application = get_asgi_application()
+
+
+
+================================================
+FILE: resume_builder/settings.py
+================================================
+"""
+Django settings for resume_builder project.
+
+Generated by 'django-admin startproject' using Django 4.2.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/4.2/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/4.2/ref/settings/
+"""
+
+from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-oui2u_crx-^4fcxs*$^fm_#p##jxnz#c6b64m61=$%o)(gndrn'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'resume',  # Your resume app
+    'tailwind',
+    'theme',
+]
+
+TAILWIND_APP_NAME = 'theme'
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'resume_builder.urls'
+NPM_BIN_PATH = "C:/Users/Ganesh/AppData/Roaming/npm/npm.cmd"
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'resume' / 'templates']
+WSGI_APPLICATION = 'resume_builder.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/4.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = 'static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+================================================
+FILE: resume_builder/urls.py
+================================================
+"""
+URL configuration for resume_builder project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('resume.urls')),  # Include the resume app URLs
+]
+
+
+
+================================================
+FILE: resume_builder/wsgi.py
+================================================
+"""
+WSGI config for resume_builder project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
+"""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'resume_builder.settings')
+
+application = get_wsgi_application()
+
+
+
+================================================
+FILE: theme/__init__.py
+================================================
+
+
+
+================================================
+FILE: theme/apps.py
+================================================
+from django.apps import AppConfig
+
+
+class ThemeConfig(AppConfig):
+    name = 'theme'
+
+
+
+================================================
+FILE: theme/static_src/package.json
+================================================
+{
+  "name": "theme",
+  "version": "4.0.1",
+  "description": "",
+  "scripts": {
+    "start": "npm run dev",
+    "build": "npm run build:clean && npm run build:tailwind",
+    "build:clean": "rimraf ../static/css/dist",
+    "build:tailwind": "cross-env NODE_ENV=production postcss ./src/styles.css -o ../static/css/dist/styles.css --minify",
+    "dev": "cross-env NODE_ENV=development postcss ./src/styles.css -o ../static/css/dist/styles.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "postcss-nested": "^7.0.2",
+    "postcss-simple-vars": "^7.0.1",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^4.1.0"
+  }
+}
+
+
+
+================================================
+FILE: theme/static_src/postcss.config.js
+================================================
+module.exports = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+    "postcss-simple-vars": {},
+    "postcss-nested": {}
+  },
+}
+
+
+
+================================================
+FILE: theme/static_src/src/styles.css
+================================================
+@import "tailwindcss";
+
+/**
+  * A catch-all path to Django template files, JavaScript, and Python files
+  * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
+  *
+  * If your final CSS file is not being updated after code changes, you may want to broaden or narrow
+  * the scope of this path.
+  */
+@source "../../../**/*.{html,py,js}";
+
+
+
+================================================
+FILE: theme/templates/base.html
+================================================
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>Django Tailwind</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-50 font-serif leading-normal tracking-normal">
+		<div class="container mx-auto">
+			<section class="flex items-center justify-center h-screen">
+				<h1 class="text-5xl">Django + Tailwind = ❤️</h1>
+			</section>
+		</div>
+	</body>
+</html>
+
+
